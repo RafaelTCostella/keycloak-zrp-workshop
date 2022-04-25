@@ -1,0 +1,21 @@
+{
+  "name": "ms-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "routes.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.0",
+    "express-winston": "^4.2.0",
+    "winston": "^3.7.2",
+    "axios": "^0.27.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}

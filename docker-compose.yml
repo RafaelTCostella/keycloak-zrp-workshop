@@ -1,0 +1,62 @@
+version: "3.8"
+
+volumes:
+  pg-data:
+
+services:
+  db:
+    hostname: db
+    image: postgres:11-alpine
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: zrp1234
+
+  ms_one:
+    hostname: ms_one
+    tty: true
+    stdin_open: true
+    ports:
+      - 3000:3000
+    build:
+      context: ./ms-1
+    volumes:
+      - ./ms-1:/app
+    depends_on:
+      - db
+      - keycloak
+
+  ms_two:
+    hostname: ms_two
+    tty: true
+    stdin_open: true
+    ports:
+      - 3001:3001
+    build:
+      context: ./ms-2
+    volumes:
+      - ./ms-2:/app
+    depends_on:
+      - db
+      - keycloak
+
+  keycloak:
+    image: bitnami/keycloak:latest
+    environment:
+      KEYCLOAK_DATABASE_HOST: db
+      KEYCLOAK_DATABASE_NAME: postgres
+      KEYCLOAK_DATABASE_USER: postgres
+      KEYCLOAK_DATABASE_PASSWORD: zrp1234
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+      - mailcatcher
+
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: mailcatcher_keycloak
+    ports:
+      - 1080:1080
