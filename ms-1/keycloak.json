@@ -1,0 +1,8 @@
+{
+  "realm" : "workshop",
+  "realm-public-key" : "...",
+  "auth-server-url" : "http://workshop.login.local:8080/auth",
+  "ssl-required" : "external",
+  "resource" : "ms1-code-flow",
+  "public-client" : true
+}
