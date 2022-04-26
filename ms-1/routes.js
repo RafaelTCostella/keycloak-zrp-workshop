@@ -1,11 +1,8 @@
 const express = require('express');
-const router = express.Router();
+const axios = require('axios');
 
-router.use('/protected', (_, res) => {
-  res.json({
-    protected: true,
-  });
-});
+const app = express();
+const router = express.Router();
 
 router.use('/public', (_, res) => {
   res.json({
@@ -13,12 +10,25 @@ router.use('/public', (_, res) => {
   });
 });
 
-router.use('/call-ms-2', async (_, res) => {
-  const { data } = await axios.get('http://ms_two:3001/v1/protected');
-
-  return res.json({
-    ms2Response: data,
-  })
+router.use('/protected', (_, res) => {
+  res.json({
+    protected: true,
+  });
 });
 
-module.exports = { router };
+router.use('/call-ms-2', async (_, res) => {
+  try {
+    const { data } = await axios.get('http://ms_two:3001/v1/protected');
+
+    return res.json({
+      ms2Response: data,
+    });
+  } catch (e) {
+    return res.json({
+      error: true,
+      e,
+    }).status(401);
+  }
+});
+
+module.exports = { router, app };

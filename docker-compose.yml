@@ -16,6 +16,8 @@ services:
     hostname: ms_one
     tty: true
     stdin_open: true
+    extra_hosts:
+      - "workshop.login.local:host-gateway"
     ports:
       - 3000:3000
     build:
@@ -30,6 +32,8 @@ services:
     hostname: ms_two
     tty: true
     stdin_open: true
+    extra_hosts:
+      - "workshop.login.local:host-gateway"
     ports:
       - 3001:3001
     build:

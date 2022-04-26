@@ -1,6 +1,7 @@
 const express = require('express');
 
 const router = express.Router();
+const app = express();
 
 router.use('/protected', (_, res) => {
   res.json({
@@ -8,4 +9,4 @@ router.use('/protected', (_, res) => {
   });
 });
 
-module.exports = { router };
+module.exports = { router, app };
