@@ -45,14 +45,14 @@ services:
       - keycloak
 
   keycloak:
-    image: bitnami/keycloak:latest
+    image: bitnami/keycloak:18.0.2
     environment:
       KEYCLOAK_DATABASE_HOST: db
       KEYCLOAK_DATABASE_NAME: postgres
       KEYCLOAK_DATABASE_USER: postgres
       KEYCLOAK_DATABASE_PASSWORD: zrp1234
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
+      KEYCLOAK_ADMIN_USER: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
       - 8080:8080
     depends_on:
